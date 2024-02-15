@@ -3,6 +3,8 @@ package com.hamza.firstapp
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,6 +19,9 @@ import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import java.io.File
 import java.io.FileOutputStream
 
@@ -27,6 +32,8 @@ class processing_image : AppCompatActivity() {
     val REQUEST_CODE_CAMERA_CAPTURE = 102
 
     var imageView: ImageView? = null
+    var imageView2: ImageView? = null
+    var urlImage: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +41,7 @@ class processing_image : AppCompatActivity() {
         val editText = findViewById<EditText>(R.id.editTextText)
 
         imageView = findViewById<ImageView>(R.id.imageView)
+        imageView2 = findViewById<ImageView>(R.id.imageView2)
 
 
 
@@ -41,6 +49,7 @@ class processing_image : AppCompatActivity() {
         val radioButton2 = findViewById<RadioButton>(R.id.radioButton2)
         val radioButton3 = findViewById<RadioButton>(R.id.radioButton3)
         val upload = findViewById<Button>(R.id.button)
+        val compress = findViewById<Button>(R.id.button2)
 
         editText.visibility = View.INVISIBLE
 
@@ -57,7 +66,24 @@ class processing_image : AppCompatActivity() {
 
                 when (selectedRadioButton) {
                     findViewById<RadioButton>(R.id.radioButton) -> {
+                        // Find your ImageView
+                        val imageView: ImageView = findViewById(R.id.imageView)
 
+                        //val imageView: ImageView = findViewById(R.id.imageView)
+
+                        // URL of the image
+                        val urlEditText: EditText = findViewById(R.id.editTextText)
+
+                            //"https://images.freeimages.com/images/large-previews/2ab/dog-1392238.jpg"
+                        urlImage = urlEditText.text.toString()
+                        // Use Glide to load the image into the ImageView
+                        val requestOptions = RequestOptions()
+                            .diskCacheStrategy(DiskCacheStrategy.ALL) // Cache the image
+
+                        Glide.with(this)
+                            .load(urlImage)
+                            .apply(requestOptions)
+                            .into(imageView)
                     }
                     findViewById<RadioButton>(R.id.radioButton2) -> {
 
@@ -84,6 +110,43 @@ class processing_image : AppCompatActivity() {
             }
         }
 
+        compress.setOnClickListener {
+
+            urlImage?.let { it1 ->
+                ImageUtils.loadImageFromUrl(this, it1) { bitmap ->
+                    // Use the loaded bitmap here
+                    if (bitmap != null) {
+                        // Do something with the bitmap
+
+                        val greenLayerBitmap: Bitmap = Bitmap.createBitmap(bitmap.width, bitmap.height, bitmap.config)
+
+                        // Iterate over each pixel of the original bitmap
+                        for (x in 0 until bitmap.width) {
+                            for (y in 0 until bitmap.height) {
+                                // Get the color of the pixel in the original bitmap
+                                val color = bitmap.getPixel(x, y)
+
+                                // Extract the green channel value from the color
+                                val green = Color.green(color)
+
+                                // Create a new color with only the green channel value
+                                val newColor = Color.rgb(0, green, 0)
+
+                                // Set the new color to the corresponding pixel in the green layer bitmap
+                                greenLayerBitmap.setPixel(x, y, newColor)
+                            }
+                        }
+
+
+
+                        imageView2?.setImageBitmap(greenLayerBitmap)
+                    } else {
+                        // Handle failure to load image
+                    }
+                }
+            }
+        }
+
 
         val radioGroup = findViewById<RadioGroup>(R.id.radioGroup)
 
@@ -102,11 +165,7 @@ class processing_image : AppCompatActivity() {
             }
         }
 
-
-
     }
-
-
 
 
     private fun openCamera() {
