@@ -72,9 +72,10 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
 
+    implementation("gov.nist.math:jama:1.0.3")
 
 
-
+    implementation("org.openpnp:opencv:4.9.0-0")
 
 
 }
