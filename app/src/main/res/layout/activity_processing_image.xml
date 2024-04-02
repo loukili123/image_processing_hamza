@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg"
     android:orientation="vertical"
     tools:context=".processing_image">
 
@@ -29,28 +30,40 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Fron camera" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"></LinearLayout>
     </RadioGroup>
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="224dp"
-        android:layout_height="19dp"
-        android:text="Upload an image" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="73dp"
+        android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/editTextText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:ems="10"
-        android:hint="Image URL"
-        android:inputType="text" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="224dp"
+            android:layout_height="19dp"
+            android:text="Upload an image" />
+
+        <EditText
+            android:id="@+id/editTextText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:hint="Image URL"
+            android:inputType="text" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/button"
         android:layout_width="130dp"
         android:layout_height="55dp"
         android:layout_marginTop="16dp"
+        android:background="@color/design_default_color_secondary"
         android:shadowColor="#D87575"
         android:text="ok" />
 

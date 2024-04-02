@@ -73,9 +73,8 @@ dependencies {
     annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
 
     implementation("gov.nist.math:jama:1.0.3")
-
-
     implementation("org.openpnp:opencv:4.9.0-0")
-
-
+    implementation("org.apache.commons:commons-math3:3.6.1")
+    implementation ("org.jblas:jblas:1.2.4")
+    implementation("org.ejml:ejml-core:0.43.1")
 }

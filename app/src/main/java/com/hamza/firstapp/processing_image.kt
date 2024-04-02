@@ -1,9 +1,12 @@
 package com.hamza.firstapp
 
+import ImageCompressor
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -36,10 +39,14 @@ class processing_image : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_processing_image)
         val editText = findViewById<EditText>(R.id.editTextText)
+        val k = findViewById<EditText>(R.id.editTextText2)
+
+
 
         //imageView = findViewById<ImageView>(R.id.imageView)
         var imageView: ImageView = findViewById(R.id.imageView)
         var imageView2: ImageView = findViewById(R.id.imageView2)
+
 
 
 
@@ -119,19 +126,24 @@ class processing_image : AppCompatActivity() {
                 ImageUtils.loadImageFromUrl(this, it1) { bitmap ->
                     Toast.makeText(this, "sir rak ...", Toast.LENGTH_SHORT).show()
 
-                    //imageView2?.setImageBitmap(lmyBitmap)
+                    val k: String =  k.text.toString()
+                    try {
+                        if(k .toInt() > 0){
+                            val lmyBitmap: Bitmap = ImageUtils.getBitmapFromImageView(imageView)!!
 
+                            ////////////////////////
+                            // Compress the image with a specific rank
+                            val compressor = ImageCompressor(lmyBitmap)
+                            val compressedBitmap = compressor.compressImage(k = k .toInt())
 
-                    val lmyBitmap: Bitmap = ImageUtils.getBitmapFromImageView(imageView)!!
+                            compressor.limitRangeK
 
-
-
-                    val bit : Bitmap = ImageUtils.extractRedChannel(lmyBitmap)
-
-
-                    imageView2?.setImageBitmap(ImageUtils.addRedLayer(lmyBitmap))
-
-
+                            // Display the compressed image
+                            imageView2?.setImageBitmap(compressedBitmap)
+                        }
+                    } catch (e: NumberFormatException) {
+                        Toast.makeText(this, "K value error !", Toast.LENGTH_SHORT).show()
+                    }
 
 
 
