@@ -23,16 +23,18 @@
         android:layout_marginBottom="252dp"
         android:text="Please choose an image"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="131dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="Image processessing app"
+        android:text="Image processing app"
         android:textSize="33sp"
         app:layout_constraintBottom_toTopOf="@+id/imageButton"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

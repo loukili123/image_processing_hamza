@@ -50,6 +50,14 @@ object ImageUtils {
         return null
     }
 
+    fun getBitmapSize(bitmap: Bitmap): Int {
+        // Calculate the size of the Bitmap in bytes
+        val byteCount = bitmap.byteCount
+        // Convert bytes to kilobytes (1 kilobyte = 1024 bytes)
+        val kilobytes = byteCount / 1024
+        return kilobytes
+    }
+
 
 
 
